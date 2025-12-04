@@ -1,5 +1,5 @@
 import { type User, type UserRegisterData } from "../../entities/user.ts";
-let fakeDB = {}
+import { db } from "../../app/db.ts";
 
 export class UserService {
     async getAllUsers() {
