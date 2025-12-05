@@ -15,13 +15,15 @@ router.get('/', async function (req: Request, res: Response, next) {
 })
 
 router.put('/', async function (req: Request, res: Response, next) {
+    const password_hash = await UserService.hashPassword(req.body.password)
     const userRegisterData: UserRegisterData = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
+        password_hash: password_hash,
     }
-    const usersList = await users.createUser(userRegisterData);
-    res.status(200).send(usersList)
+    const newUserId = await users.createUser(userRegisterData);
+    res.status(200).send(newUserId)
 })
 
 router.get('/:id', async function (req: Request, res: Response, next) {
@@ -35,7 +37,5 @@ router.post('/:id', async function (req: Request, res: Response, next) {
     const usersList = await users.getProfile(userId);
     res.status(200).send(usersList)
 })
-
-// router.delete('/:id', async function (req: Request, res: Response, next) { })
 
 export { router };
