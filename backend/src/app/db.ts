@@ -1,14 +1,9 @@
 import { Pool } from 'pg';
+import { DB_URL } from '../config/index.ts';
 
 let db: Pool
 export { db }
 
 export function initDbPool() {
-    db = new Pool({
-        host: process.env.DB_HOST,
-        port: Number(process.env.DB_PORT),
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME,
-    });
+    db = new Pool({ connectionString: DB_URL });
 }

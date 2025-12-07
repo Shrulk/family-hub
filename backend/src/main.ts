@@ -1,10 +1,7 @@
 import express from 'express';
-import { config } from 'dotenv';
-import { apiRouter } from './routes/api.ts';
+import { apiRouter } from './routes/api.routes.ts';
 import { db, initDbPool } from './app/db.ts';
-
-// init .env variables
-config()
+import { PORT } from './config/index.ts';
 
 initDbPool()
 
@@ -18,7 +15,6 @@ app.get('/is_ok', (req, res) => {
 
 app.use('/api', apiRouter)
 
-const PORT = process.env.APP_PORT;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });

@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
-import { type User, type UserRegisterData } from "../../entities/user.ts";
-import { db } from "../../app/db.ts";
-
+import { type User, type UserRegisterData } from "../entities/user.ts";
+import { db } from "../app/db.ts";
+import { BCRYPT_SALT_ROUNDS } from "../config/index.ts";
 
 export class UserService {
     static verifyId = (id: number) => !Number.isNaN(id)
@@ -9,8 +9,7 @@ export class UserService {
         return bcrypt.compare(password, passwordHash);
     }
     static hashPassword = async (password: string): Promise<string> => {
-        const saltRounds = 10; // сложность
-        return bcrypt.hash(password, saltRounds);
+        return bcrypt.hash(password, BCRYPT_SALT_ROUNDS);
     }
 
     async getAllUsers(): Promise<User[]> {
