@@ -31,7 +31,7 @@ export const login = async (req: Request, res: Response) => {
     if (!ok) return res.status(401).json({ error: 'Invalid credentials' });
 
     const tokens = await authService.generateTokens({ id: user.id, email: user.email });
-    res.json({ user: { id: user.id, email: user.email, name: user.name }, ...tokens });
+    res.json({ user: { id: user.id, email: user.email, firstname: user.firstname, lastname: user.lastname }, ...tokens });
 };
 
 export const refresh = async (req: Request, res: Response) => {

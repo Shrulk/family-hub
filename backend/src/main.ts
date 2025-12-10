@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { apiRouter } from './routes/api.routes.ts';
 import { db, initDbPool } from './app/db.ts';
 import { PORT } from './config/index.ts';
@@ -6,6 +7,11 @@ import { PORT } from './config/index.ts';
 initDbPool()
 
 const app = express();
+
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+}));
 
 app.use(express.json());
 
